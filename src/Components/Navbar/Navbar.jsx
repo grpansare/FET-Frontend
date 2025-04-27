@@ -90,12 +90,12 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="md:hidden bg-slate-700 px-4 py-2">
           <div className="flex flex-col space-y-3 pb-3">
-            <MobileNavItem icon={<Lock size={18} />} text="Encrypt" />
+{/*             <MobileNavItem icon={<Lock size={18} />} text="Encrypt" />
             <MobileNavItem icon={<Unlock size={18} />} text="Decrypt" />
             <MobileNavItem icon={<Upload size={18} />} text="Upload" />
             <MobileNavItem icon={<Download size={18} />} text="Download" />
             <MobileNavItem icon={<Settings size={18} />} text="Settings" />
-            <MobileNavItem icon={<HelpCircle size={18} />} text="Help" />
+            <MobileNavItem icon={<HelpCircle size={18} />} text="Help" /> */}
             <button
               onClick={handleLogout}
               className="flex items-center space-x-2 py-2 hover:text-green-400 transition-colors"
