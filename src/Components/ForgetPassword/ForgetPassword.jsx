@@ -9,7 +9,7 @@ import {
   Typography,
   Modal,
   Alert,
-  TextField
+  TextField,
 } from "@mui/material";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
@@ -36,14 +36,13 @@ const ForgotPassword = () => {
   const [openModal, setOpenModal] = useState(false);
   const [resentLink, setResetLink] = useState(false);
 
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!email){
-      setErrorMessage("Please enter registered email  address")
-      return
+    if (!email) {
+      setErrorMessage("Please enter registered email  address");
+      return;
     }
     setMessage("");
     setError("");
@@ -52,14 +51,13 @@ const ForgotPassword = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/users/sendemail`,
+        `https://fet-backend.onrender.com/api/users/sendemail`,
         { email }
       );
 
       if (response.status === 200) {
         setMessage(response.data.message || "Password reset link sent.");
         setOpenModal(true);
-       
       } else {
         setErrorMessage(response.data.message);
       }
@@ -77,22 +75,20 @@ const ForgotPassword = () => {
   };
 
   const handleResend = async () => {
-    
     try {
       const response = await axios.post(
-        `http://localhost:5000/user/sendemail`,
+        `https://fet-backend.onrender.com/user/sendemail`,
         { email }
       );
       if (response.status === 200) {
         setMessage("Password reset link resent.");
-        setResetLink(true)
-       
+        setResetLink(true);
       }
     } catch (err) {
       console.log(err);
       setErrorMessage("Failed to resend email.");
     } finally {
-     // Re-enable after 10s
+      // Re-enable after 10s
     }
   };
 
@@ -126,12 +122,12 @@ const ForgotPassword = () => {
             )}
           </Button>
         </form>
-        {message &&(
-           <Alert severity="success" sx={{ mt: 2 }}>
-           {message}
-         </Alert>
+        {message && (
+          <Alert severity="success" sx={{ mt: 2 }}>
+            {message}
+          </Alert>
         )}
-                {errorMessage && (
+        {errorMessage && (
           <Alert severity="error" sx={{ mt: 2 }}>
             {errorMessage}
           </Alert>
@@ -158,29 +154,22 @@ const ForgotPassword = () => {
           <Alert severity="success" sx={{ mb: 2 }}>
             📩 {message}. Please check your email inbox to reset your password.
           </Alert>
-{resentLink ?
-(
-  <Alert severity="success" sx={{ mt: 2 }}>
-    Password Reset Link Resent
-    </Alert>
-  
-):(
-
-   <div className="fw-normal text-muted mb-2">
-  Didn’t get the link?{' '}
-  <button
-    type="button"
-    className="btn btn-link text-blue-700 fw-bold text-decoration-none p-0"
-    onClick={handleResend}
-  >
-    Resend
-  </button>
-</div>
-
-)
-
-}
-         
+          {resentLink ? (
+            <Alert severity="success" sx={{ mt: 2 }}>
+              Password Reset Link Resent
+            </Alert>
+          ) : (
+            <div className="fw-normal text-muted mb-2">
+              Didn’t get the link?{" "}
+              <button
+                type="button"
+                className="btn btn-link text-blue-700 fw-bold text-decoration-none p-0"
+                onClick={handleResend}
+              >
+                Resend
+              </button>
+            </div>
+          )}
 
           <Button
             onClick={() => setOpenModal(false)}

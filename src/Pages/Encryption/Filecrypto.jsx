@@ -25,7 +25,7 @@ const Filecrypto = () => {
   const socketRef = useRef(null);
 
   const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB (adjusted to match server capabilities)
-  const API_URL = "http://localhost:5000"; // Updated to match your server port
+  const API_URL = "https://fet-backend.onrender.com"; // Updated to match your server port
 
   // Initialize socket connection when component mounts
   useEffect(() => {
@@ -97,7 +97,11 @@ const Filecrypto = () => {
     setDecryptionResult(null);
   };
 
-  const deriveKeyFromPassword = async (password, salt = null, iterations = 100000) => {
+  const deriveKeyFromPassword = async (
+    password,
+    salt = null,
+    iterations = 100000
+  ) => {
     try {
       // Create a salt if not provided
       let saltBuffer;
@@ -107,71 +111,71 @@ const Filecrypto = () => {
       } else {
         saltBuffer = window.crypto.getRandomValues(new Uint8Array(16));
       }
-      
+
       // Convert password to key material
       const encoder = new TextEncoder();
       const passwordBuffer = encoder.encode(password);
-      
+
       // Import password as key material
       const passwordKey = await window.crypto.subtle.importKey(
-        'raw',
+        "raw",
         passwordBuffer,
-        { name: 'PBKDF2' },
+        { name: "PBKDF2" },
         false,
-        ['deriveKey']
+        ["deriveKey"]
       );
-      
+
       // Derive the actual key using PBKDF2
       const derivedKey = await window.crypto.subtle.deriveKey(
         {
-          name: 'PBKDF2',
+          name: "PBKDF2",
           salt: saltBuffer,
           iterations: iterations,
-          hash: 'SHA-256'
+          hash: "SHA-256",
         },
         passwordKey,
         {
-          name: 'AES-GCM',
-          length: 256
+          name: "AES-GCM",
+          length: 256,
         },
         true, // extractable
-        ['encrypt', 'decrypt']
+        ["encrypt", "decrypt"]
       );
-      
+
       // Export the key to raw format
-      const exportedKey = await window.crypto.subtle.exportKey('raw', derivedKey);
-      
+      const exportedKey = await window.crypto.subtle.exportKey(
+        "raw",
+        derivedKey
+      );
+
       // Include salt in the result so it can be used for decryption later
-      const keyData = new Uint8Array(exportedKey.byteLength + saltBuffer.byteLength + 2);
+      const keyData = new Uint8Array(
+        exportedKey.byteLength + saltBuffer.byteLength + 2
+      );
       keyData[0] = saltBuffer.byteLength;
       keyData[1] = 0; // reserved for future use
       keyData.set(saltBuffer, 2);
       keyData.set(new Uint8Array(exportedKey), 2 + saltBuffer.byteLength);
-      
+
       return keyData;
     } catch (error) {
-      console.error('Error deriving key from password:', error);
-      throw new Error('Failed to derive key from password');
+      console.error("Error deriving key from password:", error);
+      throw new Error("Failed to derive key from password");
     }
   };
 
-
-  const handleEncryptTab=()=>{
-    setActiveTab("encrypt")
+  const handleEncryptTab = () => {
+    setActiveTab("encrypt");
     setPassword("");
     setConfirmPassword("");
     setGeneratedPassword("");
-  
-
-  }
-  const handleDecryptTab=()=>{
-    setActiveTab("decrypt")
+  };
+  const handleDecryptTab = () => {
+    setActiveTab("decrypt");
     setPassword("");
     setConfirmPassword("");
     setGeneratedPassword("");
-  
-
-  }
+  };
   const generateStrongPassword = async () => {
     try {
       // Generate a random 256-bit key (32 bytes)
@@ -199,10 +203,10 @@ const Filecrypto = () => {
   const handleAutoGeneratePass = async () => {
     try {
       const keyBuffer = await generateStrongPassword();
-      
+
       // Convert the Uint8Array to a base64 string for display
       const base64String = btoa(String.fromCharCode.apply(null, keyBuffer));
-      
+
       setGeneratedPassword(base64String);
       setPassword(base64String);
       setConfirmPassword(base64String);
@@ -242,36 +246,36 @@ const Filecrypto = () => {
   const downloadKey = () => {
     try {
       // Create a Blob containing the password
-      const blob = new Blob([generatedPassword], { type: 'text/plain' });
-      
+      const blob = new Blob([generatedPassword], { type: "text/plain" });
+
       // Create a URL for the blob
       const url = URL.createObjectURL(blob);
-      
+
       // Create a link element to trigger the download
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.download = 'encryption-key.txt';
+      link.download = "encryption-key.txt";
       document.body.appendChild(link);
-      
+
       // Trigger the download
       link.click();
-      
+
       // Clean up
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      
+
       setSuccess("Key file downloaded successfully!");
       setTimeout(() => setSuccess(""), 2000);
     } catch (err) {
       setError(`Failed to download key: ${err.message}`);
     }
   };
-  
+
   // Function to load key from file
   const handleLoadKeyFile = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    
+
     const reader = new FileReader();
     reader.onload = (event) => {
       try {
@@ -285,7 +289,7 @@ const Filecrypto = () => {
       }
     };
     reader.readAsText(file);
-    
+
     // Reset file input for reuse
     e.target.value = "";
   };
@@ -319,16 +323,15 @@ const Filecrypto = () => {
       formData.append("file", encryptFile);
       formData.append("password", password);
       formData.append("socketId", socketId);
-      const token=localStorage.getItem('token')
+      const token = localStorage.getItem("token");
       // Make API request to encrypt the file
       const response = await fetch(`${API_URL}/fileencrypt/api/encrypt`, {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${token}`, // Add your token here
+          Authorization: `Bearer ${token}`, // Add your token here
         },
         body: formData,
       });
-      
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -366,7 +369,7 @@ const Filecrypto = () => {
       setIsDecrypting(true);
       setError("");
       setDecryptionProgress(0);
-      
+
       // Connect to socket for real-time progress
       const socketId = connectSocket();
 
@@ -376,21 +379,23 @@ const Filecrypto = () => {
       formData.append("password", password);
       formData.append("socketId", socketId);
 
-      const token=localStorage.getItem('token')
-     
+      const token = localStorage.getItem("token");
+
       // Make API request to decrypt the file
       const response = await fetch(`${API_URL}/api/decrypt`, {
         method: "POST",
         body: formData,
         headers: {
-          "Authorization": `Bearer ${token}`, // Add your token here
+          Authorization: `Bearer ${token}`, // Add your token here
         },
       });
 
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          errorData.error || errorData.message || `Server responded with status ${response.status}`
+          errorData.error ||
+            errorData.message ||
+            `Server responded with status ${response.status}`
         );
       }
 
@@ -574,7 +579,7 @@ const Filecrypto = () => {
                   </p>
                 </div>
               )}
-              
+
               {/* Add option to load key from file for manual mode */}
               <div className="load-key-container">
                 <input
@@ -582,12 +587,14 @@ const Filecrypto = () => {
                   id="keyFileInput"
                   accept=".txt"
                   onChange={handleLoadKeyFile}
-                  style={{ display: 'none' }}
+                  style={{ display: "none" }}
                 />
                 <button
                   type="button"
                   className="load-key-btn"
-                  onClick={() => document.getElementById('keyFileInput').click()}
+                  onClick={() =>
+                    document.getElementById("keyFileInput").click()
+                  }
                   disabled={isEncrypting}
                 >
                   Load Key from File
@@ -751,7 +758,7 @@ const Filecrypto = () => {
                 {showPassword ? "Hide" : "Show"}
               </button>
             </div>
-            
+
             {/* Add load key file option for decryption */}
             <div className="load-key-container">
               <input
@@ -759,19 +766,21 @@ const Filecrypto = () => {
                 id="decryptKeyFileInput"
                 accept=".txt"
                 onChange={handleLoadKeyFile}
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
               />
               <button
                 type="button"
                 className="load-key-btn"
-                onClick={() => document.getElementById('decryptKeyFileInput').click()}
+                onClick={() =>
+                  document.getElementById("decryptKeyFileInput").click()
+                }
                 disabled={isDecrypting}
               >
                 Load Key from File
               </button>
             </div>
           </div>
-          
+
           <div className="file-upload">
             <input
               type="file"
@@ -813,7 +822,10 @@ const Filecrypto = () => {
                 Available until:{" "}
                 {new Date(decryptionResult.expiresAt).toLocaleString()}
                 <br />
-                <small>(Decrypted files are automatically deleted after 1 hour for security)</small>
+                <small>
+                  (Decrypted files are automatically deleted after 1 hour for
+                  security)
+                </small>
               </p>
               <button
                 onClick={handleDownloadDecrypted}

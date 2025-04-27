@@ -9,7 +9,9 @@
  */
 export async function encryptFile(file, password, onProgress) {
   // Set up Socket.io connection for tracking progress
-  const socket = io(process.env.REACT_APP_API_URL || "http://localhost:5000");
+  const socket = io(
+    process.env.REACT_APP_API_URL || "https://fet-backend.onrender.com"
+  );
 
   return new Promise((resolve, reject) => {
     socket.on("connect", () => {
@@ -31,7 +33,7 @@ export async function encryptFile(file, password, onProgress) {
       // Make API request to encrypt the file
       fetch(
         `${
-          process.env.REACT_APP_API_URL || "http://localhost:5000"
+          process.env.REACT_APP_API_URL || "https://fet-backend.onrender.com"
         }/fileencrypt/api/encrypt`,
         {
           method: "POST",
@@ -75,7 +77,7 @@ export function downloadEncryptedFile(fileId) {
   return new Promise((resolve, reject) => {
     // Create a hidden anchor to trigger file download
     const downloadUrl = `${
-      process.env.REACT_APP_API_URL || "http://localhost:5000"
+      process.env.REACT_APP_API_URL || "https://fet-backend.onrender.com"
     }/fileencrypt/api/download/${fileId}`;
 
     // For triggering the browser's download functionality
@@ -104,7 +106,7 @@ export async function checkFileAvailability(fileId) {
   try {
     const response = await fetch(
       `${
-        process.env.REACT_APP_API_URL || "http://localhost:5000"
+        process.env.REACT_APP_API_URL || "https://fet-backend.onrender.com"
       }/fileencrypt/api/download/${fileId}`,
       {
         method: "HEAD",

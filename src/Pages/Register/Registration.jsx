@@ -21,7 +21,7 @@ const RegistrationForm = () => {
     password: "",
     confirmPassword: "",
   });
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
   const validateForm = () => {
@@ -94,24 +94,23 @@ const RegistrationForm = () => {
     return isValid;
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
+      try {
+        const response = await axios.post(
+          "https://fet-backend.onrender.com/api/users/register",
+          formData
+        );
+        console.log(response);
 
-          try{
-
-            const response=await axios.post('http://localhost:5000/api/users/register',formData)
-            console.log(response);
-            
-            setShowPopup(true);
-            setTimeout(()=>{
-              navigate("/")
-
-            },2000)
-
-          }catch(err){
-            alert(err.response.data.message   )            
-          }
+        setShowPopup(true);
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      } catch (err) {
+        alert(err.response.data.message);
+      }
 
       console.log("Form submitted:", formData);
     }
@@ -126,115 +125,114 @@ const RegistrationForm = () => {
   };
 
   return (
-
     <div className="main-container">
-    <div className="registration-container">
-      <h2>Create Account</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-row">
-          <div className="form-group">
-            <label>First Name:</label>
-            <input
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              className={errors.firstName ? "input-error" : ""}
-            />
-            {errors.firstName && (
-              <span className="error">{errors.firstName}</span>
-            )}
+      <div className="registration-container">
+        <h2>Create Account</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-row">
+            <div className="form-group">
+              <label>First Name:</label>
+              <input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                className={errors.firstName ? "input-error" : ""}
+              />
+              {errors.firstName && (
+                <span className="error">{errors.firstName}</span>
+              )}
+            </div>
+
+            <div className="form-group">
+              <label>Last Name:</label>
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                className={errors.lastName ? "input-error" : ""}
+              />
+              {errors.lastName && (
+                <span className="error">{errors.lastName}</span>
+              )}
+            </div>
           </div>
 
-          <div className="form-group">
-            <label>Last Name:</label>
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              className={errors.lastName ? "input-error" : ""}
-            />
-            {errors.lastName && (
-              <span className="error">{errors.lastName}</span>
-            )}
-          </div>
-        </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Username:</label>
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                className={errors.username ? "input-error" : ""}
+              />
+              {errors.username && (
+                <span className="error">{errors.username}</span>
+              )}
+            </div>
 
-        <div className="form-row">
-          <div className="form-group">
-            <label>Username:</label>
-            <input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              className={errors.username ? "input-error" : ""}
-            />
-            {errors.username && (
-              <span className="error">{errors.username}</span>
-            )}
+            <div className="form-group">
+              <label>Email:</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className={errors.email ? "input-error" : ""}
+              />
+              {errors.email && <span className="error">{errors.email}</span>}
+            </div>
           </div>
 
-          <div className="form-group">
-            <label>Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className={errors.email ? "input-error" : ""}
-            />
-            {errors.email && <span className="error">{errors.email}</span>}
-          </div>
-        </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Password:</label>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className={errors.password ? "input-error" : ""}
+              />
+              {errors.password && (
+                <span className="error">{errors.password}</span>
+              )}
+            </div>
 
-        <div className="form-row">
-          <div className="form-group">
-            <label>Password:</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className={errors.password ? "input-error" : ""}
-            />
-            {errors.password && (
-              <span className="error">{errors.password}</span>
-            )}
+            <div className="form-group">
+              <label>Confirm Password:</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className={errors.confirmPassword ? "input-error" : ""}
+              />
+              {errors.confirmPassword && (
+                <span className="error">{errors.confirmPassword}</span>
+              )}
+            </div>
           </div>
 
-          <div className="form-group">
-            <label>Confirm Password:</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className={errors.confirmPassword ? "input-error" : ""}
-            />
-            {errors.confirmPassword && (
-              <span className="error">{errors.confirmPassword}</span>
-            )}
+          <div className="button-container">
+            <button type="submit" className="submit-btn-register">
+              Register
+            </button>
           </div>
-        </div>
+        </form>
 
-        <div className="button-container">
-          <button type="submit" className="submit-btn-register">
-            Register
-          </button>
-        </div>
-      </form>
-
-      {showPopup && (
-        <div className="success-popup">
-          <div className="popup-content">
-            <h3>Registered Successfully! ✅</h3>
-            <button onClick={() => setShowPopup(false)}>Close</button>
+        {showPopup && (
+          <div className="success-popup">
+            <div className="popup-content">
+              <h3>Registered Successfully! ✅</h3>
+              <button onClick={() => setShowPopup(false)}>Close</button>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
     </div>
   );
 };

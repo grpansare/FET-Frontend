@@ -11,7 +11,7 @@ const ResetPassword = () => {
   const location = useLocation();
   const { email, token } = useParams();
   const navigate = useNavigate();
-   
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -26,7 +26,7 @@ const ResetPassword = () => {
     try {
       // Send request to the backend to update the password
       const response = await axios.post(
-        `http://localhost:5000/user/resetpassword/${token}`,
+        `https://fet-backend.onrender.com/user/resetpassword/${token}`,
         {
           password,
         }

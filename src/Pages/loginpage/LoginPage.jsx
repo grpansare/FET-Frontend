@@ -56,7 +56,7 @@ const LoginPage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "https://fet-backend.onrender.com/api/users/login",
         formData
       );
       console.log(response);
