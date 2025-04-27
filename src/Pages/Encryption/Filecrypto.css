@@ -1,0 +1,462 @@
+/* Enhanced Filecrypto.css with additional styles for the integrated version */
+
+.form-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tab {
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  color: #666;
+  transition: color 0.3s;
+}
+
+.tab.active {
+  color: #3498db;
+  font-weight: 600;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #3498db;
+  border-radius: 3px 3px 0 0;
+}
+
+.page {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.password-toggle-container {
+  margin-bottom: 24px;
+}
+
+.password-toggle-options {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.toggle-option {
+  flex: 1;
+  padding: 14px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #666;
+}
+
+.toggle-option.active {
+  background-color: #f0f7ff;
+  color: #2980b9;
+  font-weight: 500;
+}
+
+.toggle-option i {
+  font-size: 16px;
+}
+
+.password-group {
+  margin-bottom: 24px;
+}
+
+.password-input-wrapper {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.password-input-wrapper input {
+  width: 100%;
+  padding: 12px 50px 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.password-input-wrapper input:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.password-input-wrapper input.invalid {
+  border-color: #e74c3c;
+  background-color: #fff8f8;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #7f8c8d;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.toggle-password:hover {
+  background-color: #f5f5f5;
+}
+
+.password-validation {
+  margin-top: 12px;
+  padding: 10px 15px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.password-validation p {
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.password-validation p.valid {
+  color: #27ae60;
+}
+
+.password-validation p.invalid {
+  color: #e74c3c;
+}
+
+.auto-password-container {
+  margin-bottom: 24px;
+}
+
+.generate-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #f0f7ff;
+  color: #2980b9;
+  border: 1px dashed #3498db;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s;
+}
+
+.generate-btn:hover {
+  background-color: #e1f0fe;
+}
+
+.generated-password-container {
+  margin-top: 16px;
+  padding: 15px;
+  background-color: #f0f7ff;
+  border-radius: 6px;
+}
+
+.generated-password-label {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.generated-password-display {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.generated-password-display input {
+  width: 100%;
+  padding: 12px 50px 12px 15px;
+  border: 1px solid #bce0fd;
+  border-radius: 6px;
+  background-color: #fff;
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.password-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.regenerate-btn, .copy-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.regenerate-btn {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  color: #555;
+}
+
+.regenerate-btn:hover {
+  background-color: #eaeaea;
+}
+
+.copy-btn {
+  background-color: #3498db;
+  border: 1px solid #2980b9;
+  color: white;
+}
+
+.copy-btn:hover {
+  background-color: #2980b9;
+}
+.download-key-btn{
+  background-color: #cd34db;
+  border: 1px solid #2980b9;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.download-key-btn:hover {
+  background-color: #b929aa;
+}
+
+.password-note {
+  font-size: 13px;
+  color: #e67e22;
+  margin-top: 12px;
+  font-style: italic;
+}
+
+.file-upload {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.file-upload input {
+  display: none;
+}
+
+.file-upload button {
+  padding: 12px 20px;
+  background-color: #ecf0f1;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+}
+
+.file-upload button:hover {
+  background-color: #dde4e6;
+}
+
+.file-info {
+  background-color: #f8f9fa;
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  border-left: 4px solid #3498db;
+}
+
+.file-info p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.encrypt-btn, .decrypt-btn, .download-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.encrypt-btn {
+  background-color: #2ecc71;
+}
+
+.encrypt-btn:hover {
+  background-color: #27ae60;
+}
+
+.decrypt-btn {
+  background-color: #3498db;
+}
+
+.decrypt-btn:hover {
+  background-color: #2980b9;
+}
+
+.download-btn {
+  background-color: #9b59b6;
+  margin-top: 15px;
+}
+
+.download-btn:hover {
+  background-color: #8e44ad;
+}
+
+.encrypt-btn:disabled, .decrypt-btn:disabled, .download-btn:disabled, .generate-btn:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.alert {
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert.error {
+  background-color: #ffeaea;
+  color: #c0392b;
+  border-left: 4px solid #e74c3c;
+}
+
+.alert.success {
+  background-color: #e7f9ef;
+  color: #27ae60;
+  border-left: 4px solid #2ecc71;
+}
+
+/* New styles for the integrated version */
+
+.progress-container {
+  margin: 20px 0;
+  height: 24px;
+  background-color: #f3f3f3;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #2ecc71;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #333;
+  font-weight: bold;
+  font-size: 14px;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+}
+
+.encryption-result {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #e8f5e9;
+  border-radius: 6px;
+  border-left: 4px solid #2ecc71;
+  margin-bottom: 20px;
+}
+
+.encryption-result h3 {
+  color: #27ae60;
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.encryption-result p {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.encryption-result small {
+  color: #7f8c8d;
+  font-size: 12px;
+}
+
+.api-notice {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #fffbea;
+  border-left: 4px solid #f1c40f;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* Icons */
+.icon-lock::before {
+  content: "🔒";
+}
+
+.icon-key::before {
+  content: "🔑";
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+button:focus, input:focus {
+  outline: none;
+}

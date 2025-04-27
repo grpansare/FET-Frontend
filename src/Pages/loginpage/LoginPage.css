@@ -1,0 +1,151 @@
+.login-page {
+  width: 100vw;
+  height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #8360c3, #2ebf91);
+  color: #333;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.login-form {
+  background: #f4f8d3;
+  padding: 2rem;
+ 
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #20002c;
+  font-family: Copperplate;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: black;
+  font-weight: 500;
+  font-size: larger;
+  font-family: Copperplate;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input.error {
+  border-color: #dc3545;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background: linear-gradient(135deg, #20002c, #cbb4d4);
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: darkslategray;
+}
+
+.submit-btn:disabled {
+  background: #2f4f4f;
+  cursor: not-allowed;
+}
+
+.forgot-password {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+.forgot-password:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.forgot-password:disabled {
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Compact error message style */
+.error-message {
+  color: #dc3545;
+  background: #f8d7da;
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.success-message {
+  color: #155724;
+  background: #d4edda;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.field-error {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.6s linear infinite;
+  margin-right: 0.5rem;
+}
