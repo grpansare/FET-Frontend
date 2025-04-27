@@ -26,7 +26,7 @@ const ResetPassword = () => {
     try {
       // Send request to the backend to update the password
       const response = await axios.post(
-        `https://fet-backend.onrender.com/user/resetpassword/${token}`,
+        `https://fet-backend.onrender.com/api/users/resetpassword/${token}`,
         {
           password,
         }
